@@ -1,0 +1,11 @@
+2024/11/11 14:51:39 {
+	"messaging_product": "whatsapp",
+	"recipient_type": "individual",
+	"to": "5521999793925",
+	"type": "document",
+	"document": {
+		"id": "1645746279325049",
+		"caption": "Apuração",
+		"filename": "Apuração.pdf"
+	}
+}
