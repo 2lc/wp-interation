@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"crypto/subtle"
 	"encoding/hex"
-	"fmt"
 	"log"
 	"os"
 
@@ -16,6 +15,8 @@ import (
 
 var secretKey = []byte("segredo-muito-bom")
 
+var db *gorm.DB
+
 type Log_wp_interation struct {
 	Id      int
 	Message string `sql:"type:varchar(500);"`
@@ -24,12 +25,18 @@ type Log_wp_interation struct {
 func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 	hashedAPIKey := sha256.Sum256([]byte(secretKey))
 
+	t := new(Log_wp_interation)
+
+	t.Message = key
+
+	db.Create(&t)
+
 	chave, err := hex.DecodeString(key)
 
 	if err != nil {
 		return false, err
 	}
-	fmt.Printf("%x", chave)
+	//fmt.Printf("%x", chave)
 
 	if subtle.ConstantTimeCompare(hashedAPIKey[:], chave[:]) == 1 {
 		return true, nil
@@ -44,7 +51,7 @@ func main() {
 	}
 	log.SetOutput(file)
 
-	db, err := gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
+	db, err = gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
 	if err != nil {
 		log.Panic("failed to connect database: " + err.Error())
 	}
