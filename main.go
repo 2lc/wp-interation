@@ -72,7 +72,7 @@ func main() {
 	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:hub.verify_token",
 		Validator: validateAPIKey,
 	}))
-	app.Get("/", func(c *fiber.Ctx) error {
+	app.Get("/:hub.verify_token", func(c *fiber.Ctx) error {
 		c.Params("hub.mode")
 		c.Params("hub.challenge")
 		c.Params("hub.verify_token")
