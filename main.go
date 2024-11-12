@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"crypto/subtle"
 	"encoding/hex"
+	"fmt"
 	"log"
 	"os"
 
@@ -28,7 +29,7 @@ func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	//fmt.Printf("%x", chave)
+	fmt.Printf("%x", chave)
 
 	if subtle.ConstantTimeCompare(hashedAPIKey[:], chave[:]) == 1 {
 		return true, nil
