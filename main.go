@@ -5,7 +5,6 @@ import (
 	"crypto/subtle"
 	"encoding/hex"
 	"log"
-	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/keyauth"
@@ -45,11 +44,12 @@ func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 }
 
 func main() {
-	file, err := os.OpenFile("./wp.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	var err error
+	/*file, err := os.OpenFile("./wp.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.SetOutput(file)
+	log.SetOutput(file)*/
 
 	db, err = gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
 	if err != nil {
