@@ -38,18 +38,17 @@ func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 
 func main() {
 	file, err := os.OpenFile("./wp.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-
-	db, err := gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
-	if err != nil {
-		panic("failed to connect database: " + err.Error())
-	}
-	db.SingularTable(true)
-	db.AutoMigrate(&Log_wp_interation{})
-
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.SetOutput(file)
+
+	db, err := gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
+	if err != nil {
+		log.Panic("failed to connect database: " + err.Error())
+	}
+	db.SingularTable(true)
+	db.AutoMigrate(&Log_wp_interation{})
 
 	/*db, err := gorm.Open("sqlite", "./db/data.db")
 	if err != nil {
