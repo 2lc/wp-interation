@@ -69,7 +69,7 @@ func main() {
 		AuthScheme: "Bearer",
 		Validator:  validateAPIKey,
 	}))*/
-	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:verify_token",
+	app.Use(keyauth.New(keyauth.Config{KeyLookup: "param:verify_token",
 		Validator: validateAPIKey,
 	}))
 	app.Get("/:verify_token", func(c *fiber.Ctx) error {
