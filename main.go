@@ -10,26 +10,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/keyauth"
 	"github.com/jinzhu/gorm"
-	_ "modernc.org/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var secretKey = []byte("segredo-muito-bom")
 
-type transaction struct {
-	ID    string `json:"id"`
-	Quote string `json:"quote"`
-}
-
-type Pcp_estacao_eton struct {
-	Id         int
-	Estacao    int
-	Node       int
-	Usuario    string
-	Terminal   int
-	Pedido     string
-	Id_costura string
-	Pacote     string
-	Tempo      string
+type Log_wp_interation struct {
+	Id      int
+	Message string `sql:"type:varchar(500);"`
 }
 
 func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
@@ -50,16 +38,24 @@ func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 
 func main() {
 	file, err := os.OpenFile("./wp.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+
+	db, err := gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
+	if err != nil {
+		panic("failed to connect database: " + err.Error())
+	}
+	db.SingularTable(true)
+	db.AutoMigrate(&Log_wp_interation{})
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.SetOutput(file)
 
-	db, err := gorm.Open("sqlite", "./db/data.db")
+	/*db, err := gorm.Open("sqlite", "./db/data.db")
 	if err != nil {
 		log.Fatal(err)
 	}
-	db.SingularTable(true)
+	db.SingularTable(true)*/
 
 	app := fiber.New()
 	app.Use(keyauth.New(keyauth.Config{KeyLookup: "header:" + fiber.HeaderAuthorization,
