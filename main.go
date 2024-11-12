@@ -68,16 +68,17 @@ func main() {
 	})
 
 	app.Post("/", func(c *fiber.Ctx) error {
-		//res := new(Pcp_estacao_eton)
+		res := new(Log_wp_interation)
 		req := c.Body()
 		//token := c.Get("Authorization")
 		log.Println(string(req))
+		res.Message = string(req)
 		/*err := json.Unmarshal([]byte(req), &res)
 		if err != nil {
 			fmt.Println("Erro:", err.Error())
 			return err
-		}
-		db.Create(&res)*/
+		}*/
+		db.Create(&res)
 		return nil
 	})
 
