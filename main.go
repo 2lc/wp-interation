@@ -65,8 +65,12 @@ func main() {
 	db.SingularTable(true)*/
 
 	app := fiber.New()
-	app.Use(keyauth.New(keyauth.Config{KeyLookup: "header:" + fiber.HeaderAuthorization,
+	/*app.Use(keyauth.New(keyauth.Config{KeyLookup: "header:" + fiber.HeaderAuthorization,
 		AuthScheme: "Bearer",
+		Validator:  validateAPIKey,
+	}))*/
+	app.Use(keyauth.New(keyauth.Config{KeyLookup: "header:verify_token",
+		AuthScheme: "",
 		Validator:  validateAPIKey,
 	}))
 	app.Get("/", func(c *fiber.Ctx) error {
