@@ -72,7 +72,7 @@ func main() {
 	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:hub.verify_token",
 		Validator: validateAPIKey,
 	}))
-	app.Get("/:verify_token", func(c *fiber.Ctx) error {
+	app.Get("/", func(c *fiber.Ctx) error {
 		err := c.Status(200).SendString("And the API is UP!")
 		return err
 	})
