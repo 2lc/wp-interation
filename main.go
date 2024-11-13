@@ -69,13 +69,10 @@ func main() {
 		AuthScheme: "Bearer",
 		Validator:  validateAPIKey,
 	}))*/
-	app.Use(keyauth.New(keyauth.Config{KeyLookup: "param:verify_token",
+	app.Use(keyauth.New(keyauth.Config{KeyLookup: "query:hub_verify_token",
 		Validator: validateAPIKey,
 	}))
 	app.Get("/:verify_token", func(c *fiber.Ctx) error {
-		c.Params("mode")
-		c.Params("challenge")
-		c.Params("verify_token")
 		err := c.Status(200).SendString("And the API is UP!")
 		return err
 	})
