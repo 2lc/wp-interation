@@ -74,6 +74,10 @@ func main() {
 	}))
 	app.Get("/", func(c *fiber.Ctx) error {
 		err := c.Status(200).SendString(c.Query("hub.challenge"))
+		res := new(Log_wp_interation)
+		req := c.Body()
+		res.Message = string(req)
+		db.Create(&res)
 		return err
 	})
 
