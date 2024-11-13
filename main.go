@@ -96,6 +96,21 @@ func main() {
 		return nil
 	})
 
+	app.Post("/webhooks", func(c *fiber.Ctx) error {
+		res := new(Log_wp_interation)
+		req := c.Body()
+		//token := c.Get("Authorization")
+		log.Println(string(req))
+		res.Message = string(req)
+		/*err := json.Unmarshal([]byte(req), &res)
+		if err != nil {
+			fmt.Println("Erro:", err.Error())
+			return err
+		}*/
+		db.Create(&res)
+		return nil
+	})
+
 	log.Fatal(app.Listen(":443"))
 
 }
