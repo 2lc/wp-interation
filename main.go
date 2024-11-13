@@ -73,7 +73,7 @@ func main() {
 		Validator: validateAPIKey,
 	}))
 	app.Get("/", func(c *fiber.Ctx) error {
-		err := c.Status(200).SendString("And the API is UP!")
+		err := c.Status(200).SendString("1158201444")
 		return err
 	})
 
