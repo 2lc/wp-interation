@@ -109,6 +109,7 @@ func main() {
 	})
 
 	app.Get("/webhook", func(c *fiber.Ctx) error {
+		c.Status(200).SendString(c.Query("hub.challenge"))
 		res := new(Log_wp_interation)
 		req := c.Body()
 		//token := c.Get("Authorization")
