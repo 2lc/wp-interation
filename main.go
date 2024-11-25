@@ -93,7 +93,7 @@ func main() {
 		return nil
 	})
 
-	app.Post("/webhooks", func(c *fiber.Ctx) error {
+	app.Post("/webhook", func(c *fiber.Ctx) error {
 		res := new(Log_wp_interation)
 		req := c.Body()
 		//token := c.Get("Authorization")
@@ -108,7 +108,7 @@ func main() {
 		return nil
 	})
 
-	app.Get("/webhooks", func(c *fiber.Ctx) error {
+	app.Get("/webhook", func(c *fiber.Ctx) error {
 		res := new(Log_wp_interation)
 		req := c.Body()
 		//token := c.Get("Authorization")
