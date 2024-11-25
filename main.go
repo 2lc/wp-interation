@@ -46,7 +46,7 @@ func validateAPIKey(c *fiber.Ctx, key string) (bool, error) {
 func main() {
 	var err error
 
-	db, err = gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=verify-ca password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
+	db, err = gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a user=dbwp_user dbname=dbwp sslmode=disable password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
 	//db, err = gorm.Open("postgres", "host=dpg-csp3urqj1k6c73ch17g0-a.ohio-postgres.render.com user=dbwp_user dbname=dbwp sslmode=verify-ca password=vmUXr7elwq4ZFjwkQKya7tH11JAhpWw4")
 
 	if err != nil {
